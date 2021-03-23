@@ -3,13 +3,27 @@ package stringcalc;
 public class StringCalc {
 
     public int add(String numbers) {
-        int total = 0;
+        String delimiter = "[,;\n]";
+        String unformattedNumbers = numbers;
         if (numbers.isEmpty()){
             return 0;
         }
-        String[] numberArray = numbers.split("[,\n]");
 
-        for (String number:numberArray) {
+        if (numbers.startsWith("//")) {
+            int index = numbers.indexOf("//") +2;
+            delimiter = numbers.substring(index, index +1);
+            unformattedNumbers = numbers.substring(numbers.indexOf("\n") + 1);
+        } else {
+            return differentDelimiter(unformattedNumbers, delimiter);
+        }
+
+        return differentDelimiter(unformattedNumbers, delimiter);
+    }
+
+    public int differentDelimiter(String numbers, String delimiter) {
+        int total = 0;
+        String[] numberArray = numbers.split(delimiter);
+        for (String number : numberArray) {
             total += Integer.parseInt(number);
         }
         return total;

@@ -38,4 +38,10 @@ class StringCalcTest {
         assertEquals(6, actual);
     }
 
+    @Test
+    void testWithNewDelimiterMethod() {
+        var actual = stringCalc.add("//;\n1;2");
+        assertEquals(3, actual);
+    }
+
 }
