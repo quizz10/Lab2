@@ -44,4 +44,12 @@ class StringCalcTest {
         assertEquals(3, actual);
     }
 
+    @Test
+    void testNegativeNumbersNotAccepted() {
+      var answer = assertThrows(IllegalArgumentException.class, () -> stringCalc.add("1,5,10,-5,-80"));
+      assertEquals("Negatives not allowed [-5, -80]", answer.getMessage());
+    }
+
+
+
 }

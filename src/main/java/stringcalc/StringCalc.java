@@ -1,5 +1,8 @@
 package stringcalc;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class StringCalc {
 
     public int add(String numbers) {
@@ -22,9 +25,20 @@ public class StringCalc {
 
     public int differentDelimiter(String numbers, String delimiter) {
         int total = 0;
+        int numberToSave;
+        List<Integer> lessThanZero = new ArrayList<>();
         String[] numberArray = numbers.split(delimiter);
+
         for (String number : numberArray) {
-            total += Integer.parseInt(number);
+            numberToSave = Integer.parseInt(number);
+            if (numberToSave < 0) {
+                lessThanZero.add(numberToSave);
+            }
+            total += numberToSave;
+        }
+
+        if (lessThanZero.size()> 0) {
+            throw new IllegalArgumentException("Negatives not allowed " + lessThanZero.toString());
         }
         return total;
     }
