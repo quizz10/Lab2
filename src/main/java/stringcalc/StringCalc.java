@@ -7,7 +7,7 @@ public class StringCalc {
         if (numbers.isEmpty()){
             return 0;
         }
-        String[] numberArray = numbers.split(",");
+        String[] numberArray = numbers.split("[,\n]");
 
         for (String number:numberArray) {
             total += Integer.parseInt(number);

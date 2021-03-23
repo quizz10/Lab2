@@ -32,4 +32,10 @@ class StringCalcTest {
         assertEquals(15, actual);
     }
 
+    @Test
+    void testWithMultipleRegEx() {
+        var actual = stringCalc.add("1\n2,3");
+        assertEquals(6, actual);
+    }
+
 }
