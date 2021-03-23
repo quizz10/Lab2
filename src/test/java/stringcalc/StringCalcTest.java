@@ -10,7 +10,7 @@ class StringCalcTest {
     @Test
     void testAddNoNumber() {
 
-       var actual = stringCalc.add("");
+        var actual = stringCalc.add("");
         assertEquals(0, actual);
     }
 
@@ -24,6 +24,12 @@ class StringCalcTest {
     void testAddTwoNumbers() {
         var actual = stringCalc.add("1,2");
         assertEquals(3, actual);
+    }
+
+    @Test
+    void testMoreThanTwoNumbers() {
+        var actual = stringCalc.add("1,2,3,4,5");
+        assertEquals(15, actual);
     }
 
 }
