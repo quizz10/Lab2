@@ -11,7 +11,6 @@ public class StringCalc {
         if (numbers.isEmpty()){
             return 0;
         }
-
         if (numbers.startsWith("//")) {
             int index = numbers.indexOf("//") +2;
             delimiter = numbers.substring(index, index +1);
@@ -19,7 +18,6 @@ public class StringCalc {
         } else {
             return differentDelimiter(unformattedNumbers, delimiter);
         }
-
         return differentDelimiter(unformattedNumbers, delimiter);
     }
 
@@ -33,8 +31,9 @@ public class StringCalc {
             numberToSave = Integer.parseInt(number);
             if (numberToSave < 0) {
                 lessThanZero.add(numberToSave);
+            } else if (numberToSave < 1001) {
+                total += numberToSave;
             }
-            total += numberToSave;
         }
 
         if (lessThanZero.size()> 0) {

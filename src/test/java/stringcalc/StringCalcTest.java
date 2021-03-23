@@ -49,7 +49,10 @@ class StringCalcTest {
       var answer = assertThrows(IllegalArgumentException.class, () -> stringCalc.add("1,5,10,-5,-80"));
       assertEquals("Negatives not allowed [-5, -80]", answer.getMessage());
     }
-
-
+    @Test
+    void testingNumberBiggerThanThousand() {
+        var actual = stringCalc.add("2,1001");
+        assertEquals(2, actual);
+    }
 
 }
