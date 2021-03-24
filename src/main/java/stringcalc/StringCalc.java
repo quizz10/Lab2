@@ -1,44 +1,38 @@
 package stringcalc;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class StringCalc {
 
     public int add(String numbers) {
-        String delimiter = "[,;\n]";
-        String unformattedNumbers = numbers;
-        if (numbers.isEmpty()){
-            return 0;
-        }
-        if (numbers.startsWith("//")) {
-            int index = numbers.indexOf("//") +2;
-            delimiter = numbers.substring(index, index +1);
-            unformattedNumbers = numbers.substring(numbers.indexOf("\n") + 1);
-        } else {
-            return differentDelimiter(unformattedNumbers, delimiter);
-        }
-        return differentDelimiter(unformattedNumbers, delimiter);
-    }
-
-    public int differentDelimiter(String numbers, String delimiter) {
-        int total = 0;
-        int numberToSave;
+        StringBuilder defaultRegex = new StringBuilder("\\n,");
+        StringBuilder fixed = new StringBuilder();
         List<Integer> lessThanZero = new ArrayList<>();
-        String[] numberArray = numbers.split(delimiter);
-
-        for (String number : numberArray) {
-            numberToSave = Integer.parseInt(number);
-            if (numberToSave < 0) {
-                lessThanZero.add(numberToSave);
-            } else if (numberToSave < 1001) {
-                total += numberToSave;
-            }
+        if (numbers.startsWith("//")) {
+            defaultRegex.append(numbers, numbers.indexOf("//"),
+                    numbers.indexOf("\n"));
+            fixed.append(numbers.substring(numbers.indexOf("\n")).trim());
+        } else {
+            fixed.append(numbers);
         }
-
-        if (lessThanZero.size()> 0) {
+        String[] split = fixed.toString().split("[" + defaultRegex + "]");
+        Arrays.stream(split)
+                .map(String::strip)
+                .filter(x -> !x.isEmpty())
+                .mapToInt(Integer::parseInt)
+                .filter(num -> num < 0)
+                .forEach(lessThanZero::add);
+        if (lessThanZero.size() > 0) {
             throw new IllegalArgumentException("Negatives not allowed " + lessThanZero.toString());
         }
-        return total;
+
+        return Arrays.stream(split)
+                .map(String::strip)
+                .filter(x -> !x.isEmpty())
+                .mapToInt(Integer::parseInt)
+                .filter(num -> num < 1001 && num > 0)
+                .sum();
     }
 }
