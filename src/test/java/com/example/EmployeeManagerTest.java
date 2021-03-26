@@ -1,15 +1,11 @@
 package com.example;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.mockito.Mockito.*;
 
 
@@ -24,8 +20,8 @@ class EmployeeManagerTest {
     @Test
     void testPayEmployees() {
         //TODO Arrange
-        BankService bankService = new TestBankService();
-        EmployeeRepository employeeRepository = new TestEmployeeRepository();
+        BankService bankService = new BankServiceTest();
+        EmployeeRepository employeeRepository = new EmployeeRepositoryTest();
         EmployeeManager employeeManager = new EmployeeManager(employeeRepository, bankService);
         // TODO Act
         var actual = employeeManager.payEmployees();
@@ -38,11 +34,11 @@ class EmployeeManagerTest {
         List<Employee> employeeList = new ArrayList<>();
         employeeList.add(new Employee("1",1000));
         var bankService = mock(BankService.class);
-        doThrow(RuntimeException.class).when(bankService).pay("1",1000);
         var employeeRepository = mock(EmployeeRepository.class);
+
+        doThrow(RuntimeException.class).when(bankService).pay("1",1000);
         when(employeeRepository.findAll()).thenReturn(employeeList);
         EmployeeManager employeeManager = new EmployeeManager(employeeRepository, bankService);
-
         employeeManager.payEmployees();
 
         assertThat(employeeList.get(0).isPaid()).isFalse();

@@ -2,7 +2,7 @@ package com.example;
 
 import java.util.List;
 
-public class TestEmployeeRepository implements EmployeeRepository {
+public class EmployeeRepositoryTest implements EmployeeRepository {
     @Override
     public List<Employee> findAll() {
         Employee emp1 = new Employee("Test1", 5000.0);
